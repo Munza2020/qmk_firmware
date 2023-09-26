@@ -19,7 +19,7 @@
 #include "features/custom_shift_keys.h"
 
 const custom_shift_key_t custom_shift_keys[] = {
-  {RCTL_T(UK_QUOT), UK_DQUO}, // Shift ' is "
+  {RCTL_T(KC_QUOT), UK_DQUO}, // Shift ' is "
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
