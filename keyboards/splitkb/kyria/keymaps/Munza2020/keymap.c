@@ -16,6 +16,14 @@
 #include QMK_KEYBOARD_H
 #include "keymap_uk.h"
 
+#include "features/custom_shift_keys.h"
+
+const custom_shift_key_t custom_shift_keys[] = {
+  {UK_QUOT, UK_DQUO}, // Shift ' is "
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+
 enum layers {
     _QWERTY = 0,
     _DVORAK,
@@ -38,7 +46,7 @@ enum layers {
 #define ADJUST   MO(_ADJUST)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
+#define CTL_QUOT MT(MOD_RCTL, UK_QUOT)
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
 
