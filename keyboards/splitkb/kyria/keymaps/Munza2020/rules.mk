@@ -4,3 +4,4 @@ RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 LTO_ENABLE = yes
 MOUSEKEY_ENABLE = no
+KEY_OVERRIDE_ENABLE = yes
