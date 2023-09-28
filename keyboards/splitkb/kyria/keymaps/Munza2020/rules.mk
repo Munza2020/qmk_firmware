@@ -5,3 +5,4 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 LTO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 KEY_OVERRIDE_ENABLE = yes
+CONSOLE_ENABLE=yes
