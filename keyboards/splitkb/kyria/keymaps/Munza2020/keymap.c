@@ -18,13 +18,17 @@
 
 #include "features/custom_shift_keys.h"
 
+enum custom_keycodes {
+  MY_HASH = SAFE_RANGE
+};
+
 const custom_shift_key_t custom_shift_keys[] = {
-  {RCTL_T(KC_QUOT), KC_DQUO}, // Shift ' is "
+  {RCTL_T(KC_QUOT), KC_AT}, // Shift ' is "
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
-const key_override_t quote_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_DQUO);
+const key_override_t quote_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_AT);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -187,6 +191,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t my_hash_timer;
+
+  switch (keycode) {
+    case MY_HASH:
+      if(record->event.pressed) {
+        my_hash_timer = timer_read();
+        register_code(KC_RCTL); // Change the key to be held here
+      } else {
+        unregister_code(KC_RCTL); // Change the key that was held here, too!
+        if (timer_elapsed(my_hash_timer) < TAPPING_TERM) {
+          SEND_STRING(R"(@)"); // Change the character(s) to be sent on tap here
+        }
+      }
+      return false; // We handled this keypress
+  }
+  return true; // We didn't handle other keypresses
+}
 /* The default OLED and rotary encoder code can be found at the bottom of qmk_firmware/keyboards/splitkb/kyria/rev1/rev1.c
  * These default settings can be overriden by your own settings in your keymap.c
  * For your convenience, here's a copy of those settings so that you can uncomment them if you wish to apply your own modifications.
