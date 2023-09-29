@@ -260,3 +260,27 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+#ifdef RGBLIGHT_ENABLE  // include mods, as well as layers
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _QWERTY:
+            rgblight_setrgb (0x00,  0x00, 0x00);
+            break;
+        case _NAV:
+            rgblight_setrgb (0x20,  0x20, 0x20);
+            break;
+        case _SYM:
+            rgblight_setrgb (0xFF,  0x00, 0x00);
+            break;
+        case _FUNCTION:
+            rgblight_setrgb (0x00,  0xFF, 0x00);
+            break;
+        case _ADJUST:
+            rgblight_setrgb (0x7A,  0x7A, 0x00);
+            break;
+        default:
+            rgblight_setrgb (0x00,  0x00, 0x00);
+    }
+    return state;
+}
+#endif
